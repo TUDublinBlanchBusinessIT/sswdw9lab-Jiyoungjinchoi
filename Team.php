@@ -1,67 +1,61 @@
 <?php
 
-class Team
-
-{
-
-    private $name="";
-
-    private $totalGoals=0;
-
-    private $totalGames=0;
-
-    Private $totalPoints=0;
+date_default_timezone_set('UTC'); 
 
 
-    public function __construct($parm1)
+class Team {
 
-    {
+    private $teamName;
 
-        $this->name = $parm1;
+    private $totalPoints = 0;
+
+    private $totalGoals = 0;
+
+    private $totalGames = 0;
+
+
+    public function __construct($teamName) {
+
+        $this->teamName = $teamName;
 
     }
 
 
-    public function finalScore($hts, $ats)
-
-    {
+    public function finalScore($homeScore, $opposingScore) {
 
         $this->totalGames += 1;
 
-        
+        $this->totalGoals += $homeScore;
 
-        if ($hts > $ats) {
+
+        if ($homeScore > $opposingScore) {
 
             $this->totalPoints += 3;
 
-        }
-
-   
-
-        elseif ($hts < $ats) {
-
-            $this->totalPoints += 0;
-
-
-        }
-
-        else {
+        } elseif ($homeScore == $opposingScore) {
 
             $this->totalPoints += 1;
 
         }
 
-        $this->totalGoals += $hts;
+    }
+
+
+    public function getGoalAverage() {
+
+        return $this->totalGames > 0 ? $this->totalGoals / $this->totalGames : 0;
 
     }
 
 
-    public function getPoints()
+    // Add this method to retrieve total points
 
-    {
+    public function getTotalPoints() {
 
         return $this->totalPoints;
 
     }
 
 }
+
+?>
